@@ -6,19 +6,28 @@ pipeline {
                 echo 'Building the code using Maven'
                 
             }
+            post {
+                always {
+                    mail to: "madhikarmianshu@gmail.com",
+                         subject: "Build Status",
+                         body: "Build log attached!",
+                         mimeType: 'text/html'
+                }
+            }
         }
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit tests using JUnit'
+                
+                echo 'Running integration tests using Selenium'
+                
             }
             post {
                 always {
-                    emailext (
-                        subject: 'Unit and Integration Tests Status',
-                        to: 'axeaxeaxepatel@gmail.com',
-                        body: "${currentBuild.result}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
-                        attachLog: true
-                    )
+                    mail to: "madhikarmianshu@gmail.com",
+                         subject: "Unit and Integration Tests Status",
+                         body: "Test log attached!",
+                         mimeType: 'text/html'
                 }
             }
         }
@@ -31,23 +40,21 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing a security scan on the code using OWASP ZAP'
-                
+               
             }
             post {
                 always {
-                    emailext (
-                        subject: 'Security Scan Status',
-                        to: 'axeaxeaxepatel@gmail.com',
-                        body: "${currentBuild.result}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
-                        attachLog: true
-                    )
+                    mail to: "madhikarmianshu@gmail.com",
+                         subject: "Security Scan Status",
+                         body: "Security scan log attached!",
+                         mimeType: 'text/html'
                 }
             }
         }
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying the application to an AWS EC2 instance'
-                
+               
             }
         }
         stage('Integration Tests on Staging') {
@@ -57,18 +64,17 @@ pipeline {
             }
             post {
                 always {
-                    emailext (
-                        subject: 'Integration Tests on Staging Status',
-                        to: 'axeaxeaxepatel@gmail.com',
-                        body: "${currentBuild.result}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
-                        attachLog: true
-                    )
+                    mail to: "madhikarmianshu@gmail.com",
+                         subject: "Integration Tests on Staging Status",
+                         body: "Staging integration test log attached!",
+                         mimeType: 'text/html'
                 }
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to an AWS'
+                echo 'Deploying the application to an AWS EC2 instance'
+                
             }
         }
     }
