@@ -8,7 +8,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "madhikarmianshu@gmail.com",
+                    mail to: "axeaxeaxepatel@gmail.com",
                          subject: "Build Status",
                          body: "Build log attached!",
                          mimeType: 'text/html'
@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "madhikarmianshu@gmail.com",
+                    mail to: "axeaxeaxepatel@gmail.com",
                          subject: "Unit and Integration Tests Status",
                          body: "Test log attached!",
                          mimeType: 'text/html'
@@ -44,7 +44,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "madhikarmianshu@gmail.com",
+                    mail to: "axeaxeaxepatel@gmail.com",
                          subject: "Security Scan Status",
                          body: "Security scan log attached!",
                          mimeType: 'text/html'
@@ -64,7 +64,7 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "madhikarmianshu@gmail.com",
+                    mail to: "axeaxeaxepatel@gmail.com",
                          subject: "Integration Tests on Staging Status",
                          body: "Staging integration test log attached!",
                          mimeType: 'text/html'
