@@ -13,12 +13,13 @@ pipeline {
             }
             post {
                 always {
-                    emailext attachLog: true
+                    emailext (
                         subject: 'Unit and Integration Tests Status',
                         to: 'axeaxeaxepatel@gmail.com',
                         body: "a",
-                        
-                    
+                        mimeType: 'text/html',
+                        attachLog: true,
+                    )
                 }
             }
         }
@@ -35,12 +36,13 @@ pipeline {
             }
             post {
                 always {
-                    emailext attachLog: true
+                    emailext (
                         subject: 'Security Scan Status',
                         to: 'axeaxeaxepatel@gmail.com',
                         body: "b",
-                        
-                    
+                        mimeType: 'text/html',
+                        attachLog: true,
+                    )
                 }
             }
         }
@@ -57,12 +59,13 @@ pipeline {
             }
             post {
                 always {
-                    emailext attachLog: true
+                    emailext (
                         subject: 'Integration Tests on Staging Status',
                         to: 'axeaxeaxepatel@gmail.com',
                         body: "c",
-                        
-                    
+                        mimeType: 'text/html',
+                        attachLog: true,
+                    )
                 }
             }
         }
