@@ -1,112 +1,113 @@
-pipeline{
-agent any
-stages {
-    stage('Build'){
-    steps{
-        echo "Build the code using maven and to compile and package code."
-    }
-    post{
-        always{echo "always"}
-   success { 
-emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Build status',
-                body: 'Build success. Please check the logs for details.',            
-            )
-    }
-failure{emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Build status',
-                body: 'Build faliure. Please check the logs for details.',)
-       }
-    }}
-    
-stage('Unit and Integration Tests'){
-    steps{
-        echo "running unit tests using selenium" 
-        echo "running integration tests using selenium"
-    }
-}
-
-stage('Code Analysis'){
-    steps{
-        echo "check the quality of the code as per industry standards using CheckStyle"
-    }
-}
-
-stage('Security Scan'){
-    steps{
-        echo "performing a security scan on the code using a tool to identify any vulnerabilities using Acunetix"
-    }
-    post{
-    success{ emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Security Scan status',
-                body: 'The Security Scan has succeeded. Please check the logs for details.',
-                
-            )}
-failure{emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Security Scan status',
-                body: 'The Security Scan has failed. Please check the logs for details.',
-                
-            )}}}
-        
-stage('Deploy to staging'){
-    steps{
-        echo "deploy the application to a staging server AWS EC2 instance server"
-    }
-}
-
-stage('Integration Tests on Staging'){
-    steps{
-        echo "testing on staging environment using selenium"
-    }
-    post{
-    success{ emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Integration Tests status',
-                body: 'The Integration Tests has succeeded. Please check the logs for details.',
-                
-            )
-     }
-failure{emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Integration Tests status',
-                body: 'The Integration Tests has failed. Please check the logs for details.',
-                
-            )}}
-}
-
-stage('Deploy to Production'){
-    steps{
-        echo "deploy the application to a production server AWS EC2 instance server"
-    }
-}}
-post {
-        success {
-            emailext (
-                attachLog: true, 
-                to: 'axeaxeaxepatel@gmail.com',
-                subject: 'Pipeline succeeded',
-                body: 'The pipeline has succeeded. Please check the logs for details.',
-                
-            )
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('Build')
+        {
+            steps
+            {
+                echo 'Compiling code using Maven'
+            }
         }
 
-        failure {
-            emailext (
-                subject: "Pipeline is Failed",
-                body: "The pipeline has failed. See attached logs.",
-                to: "axeaxeaxepatel@gmail.com",
-                attachLog: true,
-            )
+        stage('Unit and Integration Tests')
+        {
+            steps
+            {
+                echo 'Unit and Integration Tests are running using JUnit...'
+            }
+            post
+            {
+                success
+                {
+                    emailext attachLog: true,
+                    subject: 'Unit and Integration Tests Success',
+                    body: 'Unit and Integration Tests are successful.',
+                    to: 'task62c@gmail.com'
+                }
+                failure
+                {
+                    emailext attachLog: true,
+                        subject: 'Unit and Integration Tests Failed',
+                        body: 'Unit and Integration Tests failed.',
+                        to: 'task62c@gmail.com'
+                }
+            }
+        }
+
+        stage('Code Analysis')
+        {
+            steps
+            {
+                echo 'Running code analysis using SonarQube...'
+            }
+        }
+
+        stage('Security Scan')
+        {
+            steps
+            {
+                echo 'Running security scan using OWASP ZAP...'
+            }
+            post
+            {
+                success
+                {
+                    emailext attachLog: true,
+                    subject: 'Security Scan Tests Success',
+                    body: 'Security Scan are successful.',
+                    to: 'task62c@gmail.com'
+                }
+                failure
+                {
+                    emailext attachLog: true,
+                        subject: 'Security Scans Failed',
+                        body: 'Security Scans failed.',
+                        to: 'task62c@gmail.com'
+                }
+            }
+        }
+
+        stage('Deploy to Staging')
+        {
+            steps
+            {
+                echo 'The application is being deployed to an AWS EC2 instance...'
+            }
+        }
+
+        stage('Integration Tests on Staging')
+        {
+            steps
+            {
+                echo 'Integration Tests on Staging are being run using Cypress...'
+            }
+            post
+            {
+                success
+                {
+                    emailext attachLog: true,
+                    subject: 'Integration Tests on Staging Success',
+                    body: 'Integration Tests on Staging are successful.',
+                    to: 'task62c@gmail.com'
+                }
+                failure
+                {
+                    emailext attachLog: true,
+                        subject: 'Integration Tests on Staging Failed',
+                        body: 'Integration Tests on Staging failed.',
+                        to: 'task62c@gmail.com'
+                }
+            }
+        }
+
+        stage('Deploy to Production')
+        {
+            steps
+            {
+                echo 'The application is being deployed to an AWS EC2 production server...'
+            }
         }
     }
 }
