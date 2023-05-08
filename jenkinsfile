@@ -1,112 +1,92 @@
-pipeline
-{
+pipeline {
     agent any
-    stages
-    {
-        stage('Build')
-        {
-            steps
-            {
-                echo 'Compiling code using Maven'
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the code using Maven'
+                
             }
         }
-
-        stage('Unit and Integration Tests')
-        {
-            steps
-            {
-                echo 'Unit and Integration Tests are running using JUnit...'
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Running unit tests using JUnit'
             }
-            post
-            {
-                success
-                {
-                    emailext attachLog: true,
-                    subject: 'Unit and Integration Tests Success',
-                    body: 'Unit and Integration Tests are successful.',
-                    to: 'axeaxeaxepatel@gmail.com'
+            post {
+                always {
+                    emailext (
+                        subject: 'Unit and Integration Tests Status',
+                        to: 'axeaxeaxepatel@gmail.com',
+                        body: "Unit and Integration Tests completed SUCCESSFULLY.",
+                        attachLog: true,
+                    )
                 }
-                failure
-                {
-                    emailext attachLog: true,
-                        subject: 'Unit and Integration Tests Failed',
-                        body: 'Unit and Integration Tests failed.',
-                        to: 'axeaxeaxepatel@gmail.com'
-                }
+                failure{emailext (
+                subject: 'Unit and Integration Tests Status',
+                to: 'axeaxeaxepatel@gmail.com',
+                body: 'faliure! Please check logs.',
+                attachLog: true, )
+       }
             }
         }
-
-        stage('Code Analysis')
-        {
-            steps
-            {
-                echo 'Running code analysis using SonarQube...'
+        stage('Code Analysis') {
+            steps {
+                echo 'Analyzing the code using SonarQube'
+                
             }
         }
-
-        stage('Security Scan')
-        {
-            steps
-            {
-                echo 'Running security scan using OWASP ZAP...'
+        stage('Security Scan') {
+            steps {
+                echo 'Performing a security scan on the code using OWASP ZAP'
+                
             }
-            post
-            {
-                success
-                {
-                    emailext attachLog: true,
-                    subject: 'Security Scan Tests Success',
-                    body: 'Security Scan are successful.',
-                    to: 'axeaxeaxepatel@gmail.com'
+            post {
+                always {
+                    emailext (
+                        subject: 'Security Scan Status',
+                        to: 'axeaxeaxepatel@gmail.com',
+                        body: "Security Scan completed SUCCESSFULLY.",
+                        attachLog: true,
+                    )
                 }
-                failure
-                {
-                    emailext attachLog: true,
-                        subject: 'Security Scans Failed',
-                        body: 'Security Scans failed.',
-                        to: 'axeaxeaxepatel@gmail.com'
-                }
+                failure{emailext (
+                subject: 'Security Scan Status',
+                to: 'axeaxeaxepatel@gmail.com',
+                body: 'faliure! Please check the logs.',
+                attachLog: true,)
+       }
             }
         }
-
-        stage('Deploy to Staging')
-        {
-            steps
-            {
-                echo 'The application is being deployed to an AWS EC2 instance...'
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying the application to an AWS EC2 instance'
+                
             }
         }
-
-        stage('Integration Tests on Staging')
-        {
-            steps
-            {
-                echo 'Integration Tests on Staging are being run using Cypress...'
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests on the staging environment using Selenium'
+                
             }
-            post
-            {
-                success
-                {
-                    emailext attachLog: true,
-                    subject: 'Integration Tests on Staging Success',
-                    body: 'Integration Tests on Staging are successful.',
-                    to: 'axeaxeaxepatel@gmail.com'
+            post {
+                always {
+                    emailext (
+                        subject: 'Integration Tests on Staging Status',
+                        to: 'axeaxeaxepatel@gmail.com',
+                        body: "Integration Tests on Staging completed SUCCESSFULLY.",
+                        attachLog: true,
+                    )
                 }
-                failure
-                {
-                    emailext attachLog: true,
-                        subject: 'Integration Tests on Staging Failed',
-                        body: 'Integration Tests on Staging failed.',
-                        to: 'axeaxeaxepatel@gmail.com'
-                }
+                failure{emailext (
+                subject: 'Integration Tests on Staging Status',
+                to: 'axeaxeaxepatel@gmail.com',
+                body: 'faliure! Please check the logs.',
+                attachLog: true, )
+       }
             }
         }
-
-        stage('Deploy to Production')
-        {
-            steps
-            {
-                echo 'The application is being deployed to an AWS EC2 production server...'
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying the application to an AWS'
             }
         }
     }
