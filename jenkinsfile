@@ -24,14 +24,14 @@ pipeline
                     emailext attachLog: true,
                     subject: 'Unit and Integration Tests Success',
                     body: 'Unit and Integration Tests are successful.',
-                    to: 'task62c@gmail.com'
+                    to: 'axeaxeaxepatel@gmail.com'
                 }
                 failure
                 {
                     emailext attachLog: true,
                         subject: 'Unit and Integration Tests Failed',
                         body: 'Unit and Integration Tests failed.',
-                        to: 'task62c@gmail.com'
+                        to: 'axeaxeaxepatel@gmail.com'
                 }
             }
         }
@@ -57,14 +57,14 @@ pipeline
                     emailext attachLog: true,
                     subject: 'Security Scan Tests Success',
                     body: 'Security Scan are successful.',
-                    to: 'task62c@gmail.com'
+                    to: 'axeaxeaxepatel@gmail.com'
                 }
                 failure
                 {
                     emailext attachLog: true,
                         subject: 'Security Scans Failed',
                         body: 'Security Scans failed.',
-                        to: 'task62c@gmail.com'
+                        to: 'axeaxeaxepatel@gmail.com'
                 }
             }
         }
@@ -90,14 +90,14 @@ pipeline
                     emailext attachLog: true,
                     subject: 'Integration Tests on Staging Success',
                     body: 'Integration Tests on Staging are successful.',
-                    to: 'task62c@gmail.com'
+                    to: 'axeaxeaxepatel@gmail.com'
                 }
                 failure
                 {
                     emailext attachLog: true,
                         subject: 'Integration Tests on Staging Failed',
                         body: 'Integration Tests on Staging failed.',
-                        to: 'task62c@gmail.com'
+                        to: 'axeaxeaxepatel@gmail.com'
                 }
             }
         }
